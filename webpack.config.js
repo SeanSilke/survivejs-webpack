@@ -28,6 +28,21 @@ const productionConfig = () => commonConfig;
 
 const developmentConfig = () => {
   const config = {
+
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          //Enforce allows to guarantee that linting happens before any other processing
+          enforce: 'pre',
+
+          loader: 'eslint-loader',
+          options: {
+            emitWarning: true,
+          },
+        },
+      ],
+    },
     devServer: {
       // Enable history API fallback so HTML5 History API based
       // routing works. Good for complex setups.
@@ -35,6 +50,12 @@ const developmentConfig = () => {
 
       // Display only errors to reduce the amount of output.
       stats: 'errors-only',
+
+      // overlay: true is equivalent
+      overlay: {
+        errors: true,
+        warnings: true,
+      },
 
       // Parse host and port from env to allow customization.
       //
